@@ -44,7 +44,7 @@ kube-state-metrics:
                 each:
                   type: Gauge
                   gauge:
-                    # yaml path .status.conditions[0].status
+                    # https://github.com/kubernetes/kube-state-metrics/blob/main/docs/customresourcestate-metrics.md#example-for-status-conditions-on-kubernetes-controllers
                     path: ["status", "conditions"] 
                     labelsFromPath: 
                       type: ["type"]
