@@ -35,7 +35,8 @@ kube-state-metrics:
               group: kustomize.toolkit.fluxcd.io
               version: v1
               kind: Kustomization
-            labelsFromPath: [ metadata, name ]
+            labelsFromPath: 
+              name: [ metadata, name ]
             metricNamePrefix: gotk
             metrics:
               - name: "resource_info"
@@ -44,7 +45,10 @@ kube-state-metrics:
                   type: Gauge
                   gauge:
                     # yaml path .status.conditions[0].status
-                    path: [status,conditions,"0",status] 
+                    path: ["status", "conditions"] 
+                    labelsFromPath: 
+                      type: ["type"]
+                    valueFrom: ["status"]
                 labelsFromPath:
                   exported_namespace: [ metadata, namespace ]
                   ready: [ status, conditions, "[type=Ready]", status ]
