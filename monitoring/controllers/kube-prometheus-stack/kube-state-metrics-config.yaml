@@ -190,7 +190,7 @@ kube-state-metrics:
               name: [ metadata, name ]
             metricNamePrefix: gotk
             metrics:
-              - name: "resource_info"
+              - name: "resource_status"
                 help: "The current state of a GitOps Toolkit resource."
                 each:
                   type: Gauge
@@ -214,7 +214,7 @@ kube-state-metrics:
               name: [ metadata, name ]
             metricNamePrefix: gotk
             metrics:
-              - name: "resource_info"
+              - name: "resource_status"
                 help: "The current state of a GitOps Toolkit resource."
                 each:
                   type: Gauge
@@ -228,92 +228,112 @@ kube-state-metrics:
                   ready: [ status, conditions, "[type=Ready]", status ]
                   suspended: [ spec, suspend ]
 
-          # - groupVersionKind:
-          #     group: notification.toolkit.fluxcd.io
-          #     version: v1beta2
-          #     kind: Provider
-          #   metricNamePrefix: gotk
-          #   metrics:
-          #     - name: "resource_info"
-          #       help: "The current state of a GitOps Toolkit resource."
-          #       each:
-          #         type: Gauge
-          #         info:
-          #           labelsFromPath:
-          #             name: [ metadata, name ]
-          #       labelsFromPath:
-          #         exported_namespace: [ metadata, namespace ]
-          #         ready: [ status, conditions, "[type=Ready]", status ]
-          #         suspended: [ spec, suspend ]
-          # - groupVersionKind:
-          #     group: notification.toolkit.fluxcd.io
-          #     version: v1
-          #     kind: Receiver
-          #   metricNamePrefix: gotk
-          #   metrics:
-          #     - name: "resource_info"
-          #       help: "The current state of a GitOps Toolkit resource."
-          #       each:
-          #         type: Gauge
-          #         info:
-          #           labelsFromPath:
-          #             name: [ metadata, name ]
-          #       labelsFromPath:
-          #         exported_namespace: [ metadata, namespace ]
-          #         ready: [ status, conditions, "[type=Ready]", status ]
-          #         suspended: [ spec, suspend ]
-          #         webhook_path: [ status, webhookPath ]
-          # - groupVersionKind:
-          #     group: image.toolkit.fluxcd.io
-          #     version: v1beta2
-          #     kind: ImageRepository
-          #   metricNamePrefix: gotk
-          #   metrics:
-          #     - name: "resource_info"
-          #       help: "The current state of a GitOps Toolkit resource."
-          #       each:
-          #         type: Gauge
-          #         info:
-          #           labelsFromPath:
-          #             name: [ metadata, name ]
-          #       labelsFromPath:
-          #         exported_namespace: [ metadata, namespace ]
-          #         ready: [ status, conditions, "[type=Ready]", status ]
-          #         suspended: [ spec, suspend ]
-          #         image: [ spec, image ]
-          # - groupVersionKind:
-          #     group: image.toolkit.fluxcd.io
-          #     version: v1beta2
-          #     kind: ImagePolicy
-          #   metricNamePrefix: gotk
-          #   metrics:
-          #     - name: "resource_info"
-          #       help: "The current state of a GitOps Toolkit resource."
-          #       each:
-          #         type: Gauge
-          #         info:
-          #           labelsFromPath:
-          #             name: [ metadata, name ]
-          #       labelsFromPath:
-          #         exported_namespace: [ metadata, namespace ]
-          #         ready: [ status, conditions, "[type=Ready]", status ]
-          #         suspended: [ spec, suspend ]
-          #         source_name: [ spec, imageRepositoryRef, name ]
-          # - groupVersionKind:
-          #     group: image.toolkit.fluxcd.io
-          #     version: v1beta1
-          #     kind: ImageUpdateAutomation
-          #   metricNamePrefix: gotk
-          #   metrics:
-          #     - name: "resource_info"
-          #       help: "The current state of a GitOps Toolkit resource."
-          #       each:
-          #         type: Gauge
-          #         info:
-          #           labelsFromPath:
-          #             name: [ metadata, name ]
-          #       labelsFromPath:
-          #         exported_namespace: [ metadata, namespace ]
-          #         ready: [ status, conditions, "[type=Ready]", status ]
-          #         suspended: [ spec, suspend ]
-          #         source_name: [ spec, sourceRef, name ]
+          - groupVersionKind:
+              group: notification.toolkit.fluxcd.io
+              version: v1beta2
+              kind: Provider
+            labelsFromPath: 
+              name: [ metadata, name ]
+            metricNamePrefix: gotk
+            metrics:
+              - name: "resource_status"
+                help: "The current state of a GitOps Toolkit resource."
+                each:
+                  type: Gauge
+                  gauge:
+                    path: ["status", "conditions"]
+                    labelsFromPath:
+                      type: ["type"]
+                    valueFrom: ["status"]
+                labelsFromPath:
+                  exported_namespace: [ metadata, namespace ]
+                  ready: [ status, conditions, "[type=Ready]", status ]
+                  suspended: [ spec, suspend ]
+
+          - groupVersionKind:
+              group: notification.toolkit.fluxcd.io
+              version: v1
+              kind: Receiver
+            labelsFromPath: 
+              name: [ metadata, name ]
+            metricNamePrefix: gotk
+            metrics:
+              - name: "resource_status"
+                help: "The current state of a GitOps Toolkit resource."
+                each:
+                  type: Gauge
+                  gauge:
+                    path: ["status", "conditions"]
+                    labelsFromPath:
+                      type: ["type"]
+                    valueFrom: ["status"]
+                labelsFromPath:
+                  exported_namespace: [ metadata, namespace ]
+                  ready: [ status, conditions, "[type=Ready]", status ]
+                  suspended: [ spec, suspend ]
+                  webhook_path: [ status, webhookPath ]
+
+          - groupVersionKind:
+              group: image.toolkit.fluxcd.io
+              version: v1beta2
+              kind: ImageRepository
+            metricNamePrefix: gotk
+            metrics:
+              - name: "resource_status"
+                help: "The current state of a GitOps Toolkit resource."
+                each:
+                  type: Gauge
+                  gauge:
+                    path: ["status", "conditions"]
+                    labelsFromPath:
+                      type: ["type"]
+                    valueFrom: ["status"]
+                labelsFromPath:
+                  exported_namespace: [ metadata, namespace ]
+                  ready: [ status, conditions, "[type=Ready]", status ]
+                  suspended: [ spec, suspend ]
+                  image: [ spec, image ]
+
+          - groupVersionKind:
+              group: image.toolkit.fluxcd.io
+              version: v1beta2
+              kind: ImagePolicy
+            labelsFromPath: 
+              name: [ metadata, name ]
+            metricNamePrefix: gotk
+            metrics:
+              - name: "resource_status"
+                help: "The current state of a GitOps Toolkit resource."
+                each:
+                  type: Gauge
+                  gauge:
+                    path: ["status", "conditions"]
+                    labelsFromPath:
+                      type: ["type"]
+                    valueFrom: ["status"]
+                labelsFromPath:
+                  exported_namespace: [ metadata, namespace ]
+                  ready: [ status, conditions, "[type=Ready]", status ]
+                  suspended: [ spec, suspend ]
+                  source_name: [ spec, imageRepositoryRef, name ]
+
+          - groupVersionKind:
+              group: image.toolkit.fluxcd.io
+              version: v1beta1
+              kind: ImageUpdateAutomation
+            labelsFromPath: 
+              name: [ metadata, name ]
+            metricNamePrefix: gotk
+            metrics:
+              - name: "resource_status"
+                help: "The current state of a GitOps Toolkit resource."
+                each:
+                  type: Gauge
+                  info:
+                    labelsFromPath:
+                      name: [ metadata, name ]
+                labelsFromPath:
+                  exported_namespace: [ metadata, namespace ]
+                  ready: [ status, conditions, "[type=Ready]", status ]
+                  suspended: [ spec, suspend ]
+                  source_name: [ spec, sourceRef, name ]
