@@ -37,6 +37,32 @@ kube-state-metrics:
           - groupVersionKind:
               group: kustomize.toolkit.fluxcd.io
               version: v1
+              kind: HelmRelease
+            labelsFromPath: 
+              name: [ metadata, name ]
+            metricNamePrefix: gotk
+            metrics:
+              - name: "resource_stateset"
+                help: "The current state of a GitOps Toolkit resource."
+                each:
+                  type: StateSet
+                  stateSet:
+                    path: [status, conditions]
+                    labelName: status
+                    valueFrom: [status]
+                    list: [True, False, Unknown]
+                    labelsFromPath:
+                      type: [type]
+                labelsFromPath:
+                  exported_namespace: [ metadata, namespace ]
+                  ready: [ status, conditions, "[type=Ready]", status ]
+                  suspended: [ spec, suspend ]
+                  revision: [ status, lastAppliedRevision ]
+                  source_name: [ spec, sourceRef, name ]
+
+          - groupVersionKind:
+              group: kustomize.toolkit.fluxcd.io
+              version: v1
               kind: Kustomization
             labelsFromPath: 
               name: [ metadata, name ]
