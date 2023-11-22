@@ -27,5 +27,5 @@ spec:
     replicaCount: 2
     faults:
       # test helm chart failing
-      unhealthy: true
+      #unhealthy: true
 
