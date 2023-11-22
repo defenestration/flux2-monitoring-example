@@ -85,30 +85,30 @@ kube-state-metrics:
                   revision: [ status, lastAppliedRevision ]
                   source_name: [ spec, sourceRef, name ]
 
-          - groupVersionKind:
-              group: helm.toolkit.fluxcd.io
-              version: v2beta1
-              kind: HelmRelease
-            labelsFromPath: 
-              name: [ metadata, name ]
-            metricNamePrefix: gotk
-            metrics:
-              - name: "resource_status"
-                help: "The current state of a GitOps Toolkit resource."
-                each:
-                  type: Gauge
-                  gauge:
-                    path: ["status", "conditions"]
-                    labelsFromPath:
-                      type: ["type"]
-                    valueFrom: ["status"]
-                labelsFromPath:
-                  exported_namespace: [ metadata, namespace ]
-                  ready: [ status, conditions, "[type=Ready]", status ]
-                  suspended: [ spec, suspend ]
-                  revision: [ status, lastAppliedRevision ]
-                  chart_name: [ spec, chart, spec, chart ]
-                  chart_source_name: [ spec, chart, spec, sourceRef, name ]
+          # - groupVersionKind:
+          #     group: helm.toolkit.fluxcd.io
+          #     version: v2beta1
+          #     kind: HelmRelease
+          #   labelsFromPath: 
+          #     name: [ metadata, name ]
+          #   metricNamePrefix: gotk
+          #   metrics:
+          #     - name: "resource_status"
+          #       help: "The current state of a GitOps Toolkit resource."
+          #       each:
+          #         type: Gauge
+          #         gauge:
+          #           path: ["status", "conditions"]
+          #           labelsFromPath:
+          #             type: ["type"]
+          #           valueFrom: ["status"]
+          #       labelsFromPath:
+          #         exported_namespace: [ metadata, namespace ]
+          #         ready: [ status, conditions, "[type=Ready]", status ]
+          #         suspended: [ spec, suspend ]
+          #         revision: [ status, lastAppliedRevision ]
+          #         chart_name: [ spec, chart, spec, chart ]
+          #         chart_source_name: [ spec, chart, spec, sourceRef, name ]
 
           - groupVersionKind:
               group: source.toolkit.fluxcd.io
