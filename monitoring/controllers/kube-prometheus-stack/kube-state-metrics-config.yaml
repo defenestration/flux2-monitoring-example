@@ -329,9 +329,11 @@ kube-state-metrics:
                 help: "The current state of a GitOps Toolkit resource."
                 each:
                   type: Gauge
-                  info:
+                  gauge:
+                    path: ["status", "conditions"]
                     labelsFromPath:
-                      name: [ metadata, name ]
+                      type: ["type"]
+                    valueFrom: ["status"]
                 labelsFromPath:
                   exported_namespace: [ metadata, namespace ]
                   ready: [ status, conditions, "[type=Ready]", status ]
