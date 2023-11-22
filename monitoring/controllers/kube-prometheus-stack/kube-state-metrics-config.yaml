@@ -35,8 +35,8 @@ kube-state-metrics:
       spec:
         resources:
           - groupVersionKind:
-              group: kustomize.toolkit.fluxcd.io
-              version: v1
+              group: helm.toolkit.fluxcd.io
+              version: v2beta1
               kind: HelmRelease
             labelsFromPath: 
               name: [ metadata, name ]
