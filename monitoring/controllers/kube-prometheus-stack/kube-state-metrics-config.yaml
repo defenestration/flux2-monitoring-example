@@ -36,6 +36,26 @@ kube-state-metrics:
         resources:
 
           - groupVersionKind:
+              group: example.com
+              kind: "*"
+              version: v1
+            labelsFromPath:
+              name: [metadata, name]
+              namespace: [metadata, namespace]
+            metricNamePrefix: "cr"
+            metrics:
+            - name: creationtimestamp
+              each:
+                type: Gauge
+                gauge:
+                  path: [metadata, creationTimestamp]
+            - name: resourceversion
+              each:
+                type: Info
+                info:
+                  path: [metadata, resourceVersion]
+
+          - groupVersionKind:
               group: kustomize.toolkit.fluxcd.io
               version: v1
               kind: Kustomization
