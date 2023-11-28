@@ -15,6 +15,7 @@ metadata:
 spec:
   dependsOn:
     - name: monitoring-controllers
+      namespace: monitoring
   interval: 5m
   chart:
     spec:
