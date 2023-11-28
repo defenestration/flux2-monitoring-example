@@ -25,7 +25,13 @@ spec:
       interval: 1m
   values:
     replicaCount: 2
+    # failure conditions
     faults:
-      # test helm chart failing
-      unhealthy: true
+      delay: false
+      error: true
+      unhealthy: false
+      unready: false
+      testFail: false
+      testTimeout: false
+
 
