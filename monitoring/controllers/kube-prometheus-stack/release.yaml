@@ -28,8 +28,8 @@ spec:
     prometheus:
       prometheusSpec:
         logLevel: debug
-        enableFeatures:
-          - native-histograms
+        # enableFeatures:
+        #   - native-histograms
         retention: 24h
         resources:
           requests:
