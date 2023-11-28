@@ -13,6 +13,8 @@ metadata:
   name: podinfo
   namespace: default
 spec:
+  dependsOn:
+    - name: monitoring-controllers
   interval: 5m
   chart:
     spec:
