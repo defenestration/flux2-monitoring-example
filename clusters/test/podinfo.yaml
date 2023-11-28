@@ -32,7 +32,7 @@ spec:
       delay: false
       error: false
       unhealthy: false
-      unready: true
+      unready: false
       testFail: false
       testTimeout: false
 
