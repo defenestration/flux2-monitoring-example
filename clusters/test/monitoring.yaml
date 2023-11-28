@@ -14,10 +14,6 @@ spec:
     kind: GitRepository
     name: flux-system
   path: ./monitoring/controllers
-  postBuild:
-    substitute:
-      myenv: the-current-env
-  
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
