@@ -28,9 +28,9 @@ spec:
     # failure conditions
     faults:
       delay: false
-      error: true
+      error: false
       unhealthy: false
-      unready: false
+      unready: true
       testFail: false
       testTimeout: false
 
